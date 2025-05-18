@@ -1,0 +1,81 @@
+PowerPulse: Household Energy Usage Forecast
+1. Project Overview
+The PowerPulse project aims to forecast household energy consumption using historical electrical usage data collected at minute intervals. The goal is to predict daily energy consumption patterns to assist utilities and consumers in optimizing energy usage, managing loads efficiently, and planning future infrastructure.
+
+2. Dataset Description
+Source: Household Power Consumption dataset (e.g., UCI Machine Learning Repository or specify your source)
+
+Data Period: December 2006 to November 2010 (assumed from example dates)
+
+Features:
+
+Global_active_power: Overall active power consumption (kW)
+
+Global_reactive_power: Reactive power (kW)
+
+Voltage: Voltage level (V)
+
+Global_intensity: Current intensity (A)
+
+Sub_metering_1, 2, 3: Energy consumption in different household areas (Wh)
+
+Number of Records: ~2 million rows (minute-level data)
+
+Missing Values: Approximately 25,979 rows (~1.3%) with missing data removed to maintain data integrity.
+
+3. Data Preprocessing
+Combined Date and Time columns into a single Datetime column with proper parsing.
+
+Set Datetime as index for time-series processing.
+
+Dropped missing value rows to avoid imputation bias.
+
+Resampled minute-level data to daily averages for smoother trends and faster modeling.
+
+4. Exploratory Data Analysis (EDA)
+Plotted daily energy consumption trends showing clear patterns and seasonality.
+
+Statistical summary indicated typical daily energy usage with mean, min, max, and spread.
+
+Correlation matrix revealed strong relationships among power consumption variables.
+
+Boxplots used to detect skewness and potential outliers.
+
+5. Feature Engineering
+Extracted time-based features such as day of week, month, and weekend indicator.
+
+Created rolling averages (3-day, 7-day) and lag features (previous day usages) to capture temporal dependencies.
+
+Dropped NaN values introduced by rolling and lag computations.
+
+6. Model Building and Evaluation
+Data split into 80% training and 20% testing based on time to prevent data leakage.
+
+Features scaled using StandardScaler for compatibility with models requiring normalization.
+
+Models evaluated:
+Model	MAE	RMSE	R²
+Linear Regression	0.0062	0.0079	0.9994
+Gradient Boosting Regressor	0.0093	0.0118	0.9987
+Random Forest Regressor	0.0109	0.0138	0.9982
+Support Vector Regressor	0.0487	0.0606	0.9647
+Neural Network (MLP Regressor)	0.0691	0.0869	0.9274
+
+Linear Regression achieved the best performance, closely followed by Gradient Boosting and Random Forest.
+
+SVR and MLP performed worse, possibly due to insufficient tuning or data scaling sensitivity.
+
+7. Hyperparameter Tuning
+Gradient Boosting and Random Forest improved with tuning, further optimizing learning rate, tree depth, estimators, etc.
+
+Neural Network tuning helped improve performance but still lagged behind ensemble models.
+
+8. Conclusion and Future Work
+The project successfully forecasted daily household energy consumption with high accuracy.
+
+Results suggest that simple linear models can sometimes outperform complex models in certain time series datasets.
+
+Future improvements could involve incorporating weather data, holidays, and more advanced deep learning techniques like LSTM for better sequential modeling.
+
+Deployment via dashboards or integration with smart grid systems could enhance real-time decision-making.
+
